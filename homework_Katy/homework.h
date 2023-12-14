@@ -1,4 +1,4 @@
-п»ї#include <iostream>
+#include <iostream>
 #include <vector>
 #include <chrono>
 
@@ -16,9 +16,9 @@ int countWays(int N) {
     if (N == 2) return 2;
 
     vector<int> dp(N + 1);
-    dp[0] = 1; // 1 СЃРїРѕСЃРѕР± РґРѕР±СЂР°С‚СЊСЃСЏ РґРѕ РЅР°С‡Р°Р»Р° Р»РµСЃС‚РЅРёС†С‹
-    dp[1] = 1; // 1 СЃРїРѕСЃРѕР± РґРѕР±СЂР°С‚СЊСЃСЏ РґРѕ РїРµСЂРІРѕР№ СЃС‚СѓРїРµРЅСЊРєРё
-    dp[2] = 2; // 2 СЃРїРѕСЃРѕР±Р° РґРѕР±СЂР°С‚СЊСЃСЏ РґРѕ РІС‚РѕСЂРѕР№ СЃС‚СѓРїРµРЅСЊРєРё
+    dp[0] = 1; // 1 способ добраться до начала лестницы
+    dp[1] = 1; // 1 способ добраться до первой ступеньки
+    dp[2] = 2; // 2 способа добраться до второй ступеньки
 
     for (int i = 3; i <= N; i++) {
         dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
@@ -27,21 +27,21 @@ int countWays(int N) {
     return dp[N];
 }
 
-int main() {
-    int N = 30; // РњРѕР¶РЅРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РґСЂСѓРіРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»СЏ N
+void algoritm() {
+    int N = 30; // Можно установить другое значение для N
 
     auto start_rec = chrono::high_resolution_clock::now();
-    cout << "Р РµРєСѓСЂСЃРёРІРЅРѕ: " << countWaysRecursive(N) << endl;
+    cout << "Рекурсивно: " << countWaysRecursive(N) << endl;
     auto end_rec = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> elapsed_rec = end_rec - start_rec;
-    cout << "Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЂРµРєСѓСЂСЃРёРµР№: " << elapsed_rec.count() << " РјСЃ" << endl;
+    cout << "Время выполнения рекурсией: " << elapsed_rec.count() << " мс" << endl;
 
     auto start_dp = chrono::high_resolution_clock::now();
-    cout << "РЎ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Р”Рџ: " << countWays(N) << endl;
+    cout << "С использованием ДП: " << countWays(N) << endl;
     auto end_dp = chrono::high_resolution_clock::now();
     chrono::duration<double, milli> elapsed_dp = end_dp - start_dp;
-    cout << "Р’СЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј Р”Рџ: " << elapsed_dp.count() << " РјСЃ" << endl;
+    cout << "Время выполнения с использованием ДП: " << elapsed_dp.count() << " мс" << endl;
 
-    return 0;
 }
+
 
