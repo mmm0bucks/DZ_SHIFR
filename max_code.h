@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <random>
 
 using namespace std;
 
@@ -28,6 +29,63 @@ void matrixChainOrder(const vector<int>& p, vector<vector<int>>& m, vector<vecto
             }
         }
     }
+}
+
+//Перемножение двух матриц
+/* vector<vector<int>> optimalMultiplication(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2){
+    int rows1 = matrix1.size();
+    int cols1 = matrix1[0].size();
+    int cols2 = matrix2[0].size();
+
+    vector<vector<int>> result(rows1, vector<int>(cols2, 0));
+
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            for (int k = 0; k < cols1; ++k) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+
+    return result;
+} */
+
+// Перемножение двух матриц
+vector<vector<int>> optimalMultiplication(const vector<vector<int>>& matrix1, const vector<vector<int>>& matrix2) {
+    int rows1 = matrix1.size();
+    int cols1 = matrix1[0].size();
+    int cols2 = matrix2[0].size();
+
+    vector<vector<int>> result(rows1, vector<int>(cols2, 0));
+
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            int sum = 0;
+            for (int k = 0; k < cols1; ++k) {
+                sum += matrix1[i][k] * matrix2[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+
+    return result;
+}
+
+// Функция для создания матрицы с случайными значениями
+vector<vector<int>> generateRandomMatrix(int rows, int cols) {
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(1, 10);
+
+    vector<vector<int>> matrix(rows, vector<int>(cols, 0));
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            matrix[i][j] = dis(gen);
+        }
+    }
+
+    return matrix;
 }
 
 //Функция для печати оптимального порядка умножения

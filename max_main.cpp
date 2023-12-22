@@ -6,7 +6,7 @@ using namespace std;
 
 int main() {
     // Размеры матриц в цепочке
-    vector<int> matrixSizes = {90,80,98,27,55,19,27,64,44,76,49};
+    vector<int> matrixSizes = {10,100,5,50};
 
     // Проверяем, достаточно ли данных для умножения матриц
     if (matrixSizes.size() < 2) {
@@ -33,7 +33,16 @@ int main() {
     // Расчет и вывод количества умножений для простого метода
     int simpleMultiplications = simpleMatrixChainMultiplication(matrixSizes);
     cout << "Number of multiplications (simple): " << simpleMultiplications << endl;
+    
+     // Создаем случайные матрицы по размерам вектора p
+    vector<vector<vector<int>>> matrices(matrixSizes.size()-1);
+    for (size_t i = 0; i < matrixSizes.size(); ++i) {
+        matrices[i] = generateRandomMatrix(matrixSizes[i], matrixSizes[i + 1]);
+    }
+
+    // Выводим результат перемножения матриц по оптимальному пути
+    cout << "Result of multiplication: " << endl;
+    optimalMultiplication(matrices[1], s);//, 1, n);
 
     return 0;
 }
-
